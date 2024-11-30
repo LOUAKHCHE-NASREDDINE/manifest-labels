@@ -46,7 +46,7 @@ metadata:
   name: monitoring-service
   labels:
     app.kubernetes.io/name: "monitoring"
-    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/version: "2.0"
     app.kubernetes.io/component: "utility"
 spec:
   containers:
@@ -57,3 +57,12 @@ spec:
 kubectl apply -f config-file.yaml
 kubectl get pods --show-labels # To show the labels of the pods
 kubectl get pods -l app.kubernetes.io/component # To get the pods with the label app.kubernetes.io/name=frontend
+kubectl get pods --selector=app.kubernetes.io/name=frontend # To get the pods with the label app.kubernetes.io/name=frontend
+
+selectors:
+  matchLabels:
+    app.kubernetes.io/component: utility # Selects pods with the label app.kubernetes.io/component=utility
+  matchExpressions:
+    - {key: app.kubernetes.io/version, operator: In, values: ["1.0", "2.0"]} # Selects pods with the label app.kubernetes.io/version=1.0 or app.kubernetes.io/version=2.0
+
+```           
