@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+
+      maxUnavailable: 1
+  minReadySeconds: 10 # minimum time for a new pod to be ready
+  progressDeadlineSeconds: 600 # maximum time for a deployment to make progress
+  revisionHistoryLimit: 5 # number of old ReplicaSets to retain to allow rollback
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENVIRONMENT
+              value: "PROD"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20 # check every 20 seconds
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 15 # check every 15 seconds
+      volumes:
+        - name: shared-data
+          emptyDir: {} # create an empty directory
+
+# Steps to Delete the Deployment:
+# kubectl delete deployment nginx-deployment
+# kubectl get pods
+# kubectl get replicasets"

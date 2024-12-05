@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+---
+
+apiVersion: v1  # Service is a resource in Kubernetes that defines how to access the application
+kind: Service # Service is a resource in Kubernetes that defines how to access the application
+metadata: # Metadata is data about data. It is used to provide information about the data that the service is going to expose
+  name: myapp-service # Name of the service
+spec: # Spec is the specification of the service
+  selector: # Selector is used to select the pods that the service is going to expose
+    app: myapp # Label of the pod that the service is going to expose
+  ports: # Ports is used to define the port that the service is going to expose
+  - protocol: TCP # Protocol is the protocol that the service is going to use
+    port: 80 # Port is the port that the service is going to expose
+    name: http # Name is the name of the port that the service is going to expose son that it can be referenced by the name instead of the port number
+    targetPort: 80 # TargetPort is the port that the service is going to forward the traffic to
+  type: ClusterIP # Type is the type of the service. ClusterIP is used to expose the service inside the cluster

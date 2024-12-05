@@ -1,0 +1,11 @@
+metadata:
+  name: monitoring-service
+  labels:
+    app.kubernetes.io/name: "monitoring"
+    app.kubernetes.io/version: "2.0" # Updated version
+    app.kubernetes.io/component: "utility"
+spec:
+  containers:
+  - name: monitoring-container
+    image: alpine:latest
+    command: ["sh" , "-c", "while true ; do echo 'monitoring service running ' ; sleep 3600 ; done"]
