@@ -13,6 +13,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
+    
       maxUnavailable: 1
   minReadySeconds: 10 # minimum time for a new pod to be ready
   progressDeadlineSeconds: 600 # maximum time for a deployment to make progress
@@ -52,6 +53,7 @@ spec:
       volumes:
         - name: shared-data
           emptyDir: {}
+          
 
 # Steps to Delete the Deployment:
 # kubectl delete deployment nginx-deployment
