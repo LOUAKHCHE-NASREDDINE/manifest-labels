@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## To make changes to the labels in your config-file.yaml, follow these steps:	
 - Open the config-file.yaml file in your editor.
 - Modify the labels under the metadata section as needed. For example: 
@@ -9,3 +10,6 @@ kubectl apply -f config-file.yaml
 kubectl get pods --show-labels
 
 
+=======
+# nasser
+>>>>>>> origin/main
